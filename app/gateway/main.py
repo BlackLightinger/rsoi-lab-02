@@ -79,7 +79,7 @@ def convert_ticket_to_response(ticket_data):
 # ==============================================
 @app.get("/flights", response_model=PaginationResponse)
 def retrieve_flights(page: int = None, size: int = None):
-    return flight_client.get_all(page, size)
+    return flight_client.get_all_flights(page, size)
 
 
 @app.get("/tickets")
