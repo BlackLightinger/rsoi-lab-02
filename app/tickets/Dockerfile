@@ -9,4 +9,5 @@ RUN pip install -r requirements.txt
 COPY . .
 
 WORKDIR /app
+RUN chmod +x start.sh
 CMD ["./app/tickets/start.sh"]
