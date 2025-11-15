@@ -123,7 +123,7 @@ def retrieve_ticket_details(
         ticket_uid: uuid.UUID,
         x_user_name: str = Header()
 ) -> TicketResponse | ErrorResponse:
-    ticket_info = ticket_client.get_ticket(ticket_uid)
+    ticket_info = ticket_client.get_ticket_by_uid(ticket_uid)
     if not ticket_info:
         return create_error_response("Ticket not found", 404)
 
@@ -176,7 +176,7 @@ def purchase_ticket(
         cash_payment = flight_info.price - bonus_payment
 
         if bonus_payment > 0:
-            privilege_client.add_transaction(
+            privilege_client.add_privilege_transaction(
                 x_user_name,
                 AddTransactionRequest(
                     privilege_id=user_privilege.id,
@@ -187,7 +187,7 @@ def purchase_ticket(
                 ),
             )
     else:
-        privilege_client.add_transaction(
+        privilege_client.add_privilege_transaction(
             x_user_name,
             AddTransactionRequest(
                 privilege_id=user_privilege.id,
@@ -199,7 +199,7 @@ def purchase_ticket(
         )
 
     updated_privilege = privilege_client.get_user_privilege(x_user_name)
-    ticket_client.create_ticket(
+    ticket_client.create_new_ticket(
         new_ticket_id, x_user_name, flight_info.flightNumber, cash_payment
     )
 
@@ -222,7 +222,7 @@ def purchase_ticket(
 
 @app.delete("/tickets/{ticket_uid}", status_code=204)
 def cancel_ticket(ticket_uid: uuid.UUID, x_user_name: str = Header()):
-    ticket_info = ticket_client.get_ticket(ticket_uid)
+    ticket_info = ticket_client.get_ticket_by_uid(ticket_uid)
     if not ticket_info:
         return create_error_response("Ticket does not exist", 404)
 
@@ -232,13 +232,13 @@ def cancel_ticket(ticket_uid: uuid.UUID, x_user_name: str = Header()):
     if ticket_info.status != "PAID":
         return create_error_response("Ticket cannot be cancelled", 400)
 
-    transaction_record = privilege_client.get_user_privelge_transaction(
+    transaction_record = privilege_client.get_user_privilege_transaction(
         x_user_name, ticket_uid
     )
     if transaction_record:
-        privilege_client.rollback_transaction(x_user_name, ticket_uid)
+        privilege_client.revert_transaction(x_user_name, ticket_uid)
 
-    ticket_client.delete_ticket(ticket_uid)
+    ticket_client.remove_ticket(ticket_uid)
 
 
 @app.get("/privilege")
@@ -247,7 +247,7 @@ def get_user_privilege_info(x_user_name: str = Header()) -> PrivilegeInfoRespons
     if not privilege_data:
         return create_error_response("User does not exist", 404)
 
-    history_data = privilege_client.get_user_privelge_history(x_user_name)
+    history_data = privilege_client.get_user_privilege_history(x_user_name)
     history_entries = []
 
     for history_item in history_data:
