@@ -178,7 +178,7 @@ def purchase_ticket(
         if bonus_payment > 0:
             privilege_client.add_transaction(
                 x_user_name,
-                AddTranscationRequest(
+                AddTransactionRequest(
                     privilege_id=user_privilege.id,
                     ticket_uid=new_ticket_id,
                     datetime=current_time,
@@ -189,7 +189,7 @@ def purchase_ticket(
     else:
         privilege_client.add_transaction(
             x_user_name,
-            AddTranscationRequest(
+            AddTransactionRequest(
                 privilege_id=user_privilege.id,
                 ticket_uid=new_ticket_id,
                 datetime=current_time,

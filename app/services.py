@@ -99,7 +99,7 @@ class PrivilegesService:
         response.raise_for_status()
         return PrivilegeHistory.model_validate(response.json())
 
-    def add_privilege_transaction(self, username: str, transaction_data: AddTranscationRequest):
+    def add_privilege_transaction(self, username: str, transaction_data: AddTransactionRequest):
         response = requests.post(
             f"{self.base_url}/privilege/{username}/history",
             json=transaction_data.model_dump(mode="json")

@@ -206,7 +206,7 @@ def get_specific_history_entry(
 @app.post("/privilege/{username}/history", status_code=201)
 def add_transaction(
         username: str,
-        data: AddTranscationRequest,
+        data: AddTransactionRequest,
         db: Session = Depends(get_db)
 ):
     priv = (

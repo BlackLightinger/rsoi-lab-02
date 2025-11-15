@@ -179,7 +179,7 @@ class PrivilegeInfoResponse(BaseModel):
     )
 
 
-class AddTranscationRequest(BaseModel):
+class AddTransactionRequest(BaseModel):
     privilege_id: int = Field(..., description="Privilege account ID")
     ticket_uid: uuid.UUID = Field(..., description="Related ticket UUID")
     datetime: datetime = Field(..., description="Transaction timestamp")
