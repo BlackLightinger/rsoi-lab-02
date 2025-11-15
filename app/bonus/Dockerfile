@@ -6,10 +6,10 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY app/bonus/ ./
+COPY common.py ./
+COPY services.py ./
 
-WORKDIR /app
+RUN chmod +x start.sh
 
-RUN chmod +x /app/bonus/start.sh
-
-CMD ["./app/bonus/start.sh"]
+CMD ["./start.sh"]

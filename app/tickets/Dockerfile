@@ -6,10 +6,10 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY app/tickets/ ./
+COPY common.py ./
+COPY services.py ./
 
-WORKDIR /app
+RUN chmod +x start.sh
 
-RUN chmod +x /app/tickets/start.sh
-
-CMD ["./app/tickets/start.sh"]
+CMD [".start.sh"]
