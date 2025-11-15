@@ -6,10 +6,8 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY app/gateway/ ./
-COPY common.py ./
-COPY services.py ./
+COPY . .
 
-RUN chmod +x start.sh
+RUN chmod +x app/gateway/start.sh
 
-CMD ["./start.sh"]
+CMD ["./app/gateway/start.sh"]
