@@ -84,7 +84,7 @@ def retrieve_flights(page: int = None, size: int = None):
 
 @app.get("/tickets")
 def retrieve_user_tickets(x_user_name: str = Header()) -> List[TicketResponse]:
-    user_privilege = privilege_client.get_user_privelge(x_user_name)
+    user_privilege = privilege_client.get_user_privilege(x_user_name)
     if not user_privilege:
         return create_error_response("User account not found", 404)
 
@@ -99,7 +99,7 @@ def retrieve_user_tickets(x_user_name: str = Header()) -> List[TicketResponse]:
 
 @app.get("/me")
 def get_current_user_profile(x_user_name: str = Header()) -> UserInfoResponse | ErrorResponse:
-    user_privilege = privilege_client.get_user_privelge(x_user_name)
+    user_privilege = privilege_client.get_user_privilege(x_user_name)
     if not user_privilege:
         return create_error_response("User account not found", 404)
 
@@ -157,7 +157,7 @@ def purchase_ticket(
             errors=[]
         )
 
-    user_privilege = privilege_client.get_user_privelge(x_user_name)
+    user_privilege = privilege_client.get_user_privilege(x_user_name)
     if not user_privilege:
         return ValidationErrorResponse(
             message="User does not exist",
@@ -198,7 +198,7 @@ def purchase_ticket(
             ),
         )
 
-    updated_privilege = privilege_client.get_user_privelge(x_user_name)
+    updated_privilege = privilege_client.get_user_privilege(x_user_name)
     ticket_client.create_ticket(
         new_ticket_id, x_user_name, flight_info.flightNumber, cash_payment
     )
@@ -243,7 +243,7 @@ def cancel_ticket(ticket_uid: uuid.UUID, x_user_name: str = Header()):
 
 @app.get("/privilege")
 def get_user_privilege_info(x_user_name: str = Header()) -> PrivilegeInfoResponse:
-    privilege_data = privilege_client.get_user_privelge(x_user_name)
+    privilege_data = privilege_client.get_user_privilege(x_user_name)
     if not privilege_data:
         return create_error_response("User does not exist", 404)
 
