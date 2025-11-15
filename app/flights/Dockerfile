@@ -9,5 +9,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 WORKDIR /app
-RUN ls
+
+RUN chmod +x /app/flights/start.sh
+
 CMD ["./app/flights/start.sh"]

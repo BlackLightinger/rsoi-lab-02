@@ -9,5 +9,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 WORKDIR /app
-RUN ls
+
+RUN chmod +x /app/gateway/start.sh
+
 CMD ["./app/gateway/start.sh"]

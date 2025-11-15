@@ -9,5 +9,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 WORKDIR /app
-RUN ls
+
+RUN chmod +x /app/bonus/start.sh
+
 CMD ["./app/bonus/start.sh"]
