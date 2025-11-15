@@ -15,4 +15,4 @@ insert into flight(flight_number,datetime,from_airport_id,to_airport_id,price) v
 \c privileges
 
 INSERT INTO privilege (username, status, balance)
-VALUES ('test_user', 'BRONZE', 1000)
+VALUES ('test_user', 'BRONZE', 1000);

@@ -775,7 +775,7 @@
 						"type": "text/javascript",
 						"exec": [
 							"pm.collectionVariables.set(\"flightNumber\", \"AFL031\")",
-							"pm.collectionVariables.set(\"username\", \"Test Max\")"
+							"pm.collectionVariables.set(\"username\", \"test_user\")"
 						]
 					}
 				},
@@ -798,7 +798,7 @@
 		},
 		{
 			"key": "flightNumber",
-			"value": "AFL031"
+			"value": ""
 		},
 		{
 			"key": "ticketUid",
@@ -806,7 +806,7 @@
 		},
 		{
 			"key": "username",
-			"value": "test_user"
+			"value": ""
 		},
 		{
 			"key": "balance",
